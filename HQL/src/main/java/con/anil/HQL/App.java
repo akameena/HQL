@@ -1,7 +1,11 @@
 package con.anil.HQL;
 
+import java.util.List;
 import java.util.Random;
 
+import javax.print.attribute.standard.PrinterLocation;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,7 +29,8 @@ public class App
         SessionFactory sf = conf.buildSessionFactory(sr);
         Session session =  sf.openSession();
         session.beginTransaction();
-        Random rand = new Random();
+      //this is for to insert data in table using code now commited
+        /*Random rand = new Random();
         for(int i =1;i<=50;i++)
         {
         	Student stu = new Student();
@@ -33,8 +38,15 @@ public class App
         	stu.setRoll_no(rand.nextInt(100));
         	stu.setName("anil"+i);
         	session.save(stu);
+        }*/
+        
+        Query q = session.createQuery("from Student");
+        List<Student>student = q.list();
+        for(Student st :student)
+        {
+        	System.out.println(st);
         }
-       
+        
         session.getTransaction().commit();
     }
     
